@@ -19,7 +19,7 @@ SOSim is a 3-D publicly available Bayesian probability model that infers and pre
 · Learn how the predicted trajectories and probability are affected by uncertainty;
 
 · Guide oil responders to make sampling plans during emergency response.
-
+![Structure Pic](input&output.png)
 <a name="downloading"></a>
 ## Example
 
