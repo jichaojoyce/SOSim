@@ -1,5 +1,5 @@
 # SOSim V2
-(!GUI-SOSim.png)
+![Intro Pic](GUI-SOSim.png)
 ## Table of Contents
 1. [Description](#description)
 2. [Downloading](#downloading)
