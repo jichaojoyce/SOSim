@@ -22,7 +22,8 @@ SOSim is a 3-D publicly available Bayesian probability model that infers and pre
 ![Structure Pic](input&output.png)
 <a name="downloading"></a>
 ## Example
-
+![Example Pic](out1.png)
+![Example Pic](out2.png)
 ## Downloading
 
 The purpose of this repository is solely a backup for the computational codes used in SOSim. To download and install SOSim V2, please go to:
