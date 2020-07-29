@@ -23,9 +23,9 @@ SOSim is a 3-D publicly available Bayesian probability model that infers and pre
 <a name="downloading"></a>
 ## Example
 ![Example Pic](out1.png)
-Figure 2 Submerged Oil Model Result for a Well Blowout Spill Displayed in SOSim GUI 
+                 Figure 2 Submerged Oil Model Result for a Well Blowout Spill Displayed in SOSim GUI 
 ![Example Pic](out2.png)
-Figure 3 Submerged Oil Model Result for a Well Blowout Spill Saved in Your Folder
+                 Figure 3 Submerged Oil Model Result for a Well Blowout Spill Saved in Your Folder
 ## Downloading
 
 The purpose of this repository is solely a backup for the computational codes used in SOSim. To download and install SOSim V2, please go to:
