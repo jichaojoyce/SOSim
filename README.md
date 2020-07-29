@@ -21,6 +21,8 @@ SOSim is a 3-D publicly available Bayesian probability model that infers and pre
 · Guide oil responders to make sampling plans during emergency response.
 
 <a name="downloading"></a>
+## Example
+
 ## Downloading
 
 The purpose of this repository is solely a backup for the computational codes used in SOSim. To download and install SOSim V2, please go to:
