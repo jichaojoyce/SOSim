@@ -2968,9 +2968,8 @@ class myDialog(QDialog, Ui_MyDialog):
 def main():
     
     # initialize qgis libraries
-
+    QgsApplication.setPrefixPath(qgis_prefix, True)    
     app = QgsApplication([],True)
-    QgsApplication.setPrefixPath(qgis_prefix, True)
 
     app.initQgis()
     QCoreApplication.setLibraryPaths([])

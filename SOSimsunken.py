@@ -98,22 +98,22 @@ def sampler(N):
 
 
     random.seed(seed)
-    vx1 = [random.uniform(vx_min,vx_max) for i in range(N)]
-    vx2 = [random.uniform(vx_min,vx_max) for i in range(N)]
-    vx3 = [random.uniform(vx_min,vx_max) for i in range(N)]
-    vx4 = [random.uniform(vx_min,vx_max) for i in range(N)]
-    vy1 = [random.uniform(vy_min,vy_max) for i in range(N)]
-    vy2 = [random.uniform(vy_min,vy_max) for i in range(N)]
-    vy3 = [random.uniform(vy_min,vy_max) for i in range(N)]
-    vy4 = [random.uniform(vy_min,vy_max) for i in range(N)]
-    Dx1 = [random.uniform(Dx_min,Dx_max) for j in range(N)]
-    Dx2 = [random.uniform(Dx_min,Dx_max) for j in range(N)]
-    Dx3 = [random.uniform(Dx_min,Dx_max) for j in range(N)]
-    Dx4 = [random.uniform(Dx_min,Dx_max) for j in range(N)]
-    Dy1 = [random.uniform(Dy_min,Dy_max) for j in range(N)]
-    Dy2 = [random.uniform(Dy_min,Dy_max) for j in range(N)]
-    Dy3 = [random.uniform(Dy_min,Dy_max) for j in range(N)]
-    Dy4 = [random.uniform(Dy_min,Dy_max) for j in range(N)]
+    vx1 = [random.uniform(vy_min,vy_max) for i in range(N)]
+    vx2 = [random.uniform(vy_min,vy_max) for i in range(N)]
+    vx3 = [random.uniform(vy_min,vy_max) for i in range(N)]
+    vx4 = [random.uniform(vy_min,vy_max) for i in range(N)]
+    vy1 = [random.uniform(vx_min,vx_max) for i in range(N)]
+    vy2 = [random.uniform(vx_min,vx_max) for i in range(N)]
+    vy3 = [random.uniform(vx_min,vx_max) for i in range(N)]
+    vy4 = [random.uniform(vx_min,vx_max) for i in range(N)]
+    Dx1 = [random.uniform(Dy_min,Dy_max) for j in range(N)]
+    Dx2 = [random.uniform(Dy_min,Dy_max) for j in range(N)]
+    Dx3 = [random.uniform(Dy_min,Dy_max) for j in range(N)]
+    Dx4 = [random.uniform(Dy_min,Dy_max) for j in range(N)]
+    Dy1 = [random.uniform(Dx_min,Dx_max) for j in range(N)]
+    Dy2 = [random.uniform(Dx_min,Dx_max) for j in range(N)]
+    Dy3 = [random.uniform(Dx_min,Dx_max) for j in range(N)]
+    Dy4 = [random.uniform(Dx_min,Dx_max) for j in range(N)]
     ro1 = [random.uniform(ro_min,ro_max) for j in range(N)]
     ro2 = [random.uniform(ro_min,ro_max) for j in range(N)]
     ro3 = [random.uniform(ro_min,ro_max) for j in range(N)]
@@ -931,7 +931,7 @@ def integfin(a,loc):
     ss2 = a.ss2
     if a.ourinformation['SpillPlace'] == 'River':
         if np.max(a.st) == np.min(a.st):
-            dt = np.array([a.pt]*len(t))
+            dt = np.zeros(len(t))
         else:
             dt = t 
     if a.ourinformation['SpillPlace'] == 'Ocean':
@@ -1149,7 +1149,7 @@ def integcf(a,loc):
     ss2 = a.ss2
     if a.ourinformation['SpillPlace'] == 'River':
         if np.max(a.st) == np.min(a.st):
-            dt = np.array([a.pt]*len(t))
+            dt = np.zeros(len(t))
         else:
             dt = t 
     if a.ourinformation['SpillPlace'] == 'Ocean':
@@ -1181,63 +1181,87 @@ def integcf(a,loc):
 def multicore1(a,parameter):
         pool = mp.Pool(15)
         res = pool.map(partial(IniLikelihood,a),parameter)
+        pool.close()
+        pool.join()
         return res
 
 
 def multicore2(a,loc):
         pool = mp.Pool(15)
         res = pool.map(partial(integ,a),loc)
+        pool.close()
+        pool.join()
         return res
 
 def multicore21(a,loc):
         pool = mp.Pool(15)
         res = pool.map(partial(integ2,a),loc)
+        pool.close()
+        pool.join()
         return res
 
 
 def multicore3(a,parameter):
         pool = mp.Pool(15)
         res = pool.map(partial(IniLikelihoodP,a),parameter)
+        pool.close()
+        pool.join()
         return res
 
 
 def multicore4(a,loc):
         pool = mp.Pool(15)
         res = pool.map(partial(newinteg,a),loc)
+        pool.close()
+        pool.join()
         return res
 
 def multicore5(a,loc):
         pool = mp.Pool(15)
         res = pool.map(partial(integcf,a),loc)
+        pool.close()
+        pool.join()
         return res
 
 def multicore6(a,loc):
         pool = mp.Pool(15)
         res = pool.map(partial(pminteg1,a),loc)
+        pool.close()
+        pool.join()
         return res
 
 def multicore7(a,loc):
         pool = mp.Pool(15)
         res = pool.map(partial(pminteg2,a),loc)
+        pool.close()
+        pool.join()
         return res
 
 def multicore8(a,loc):
         pool = mp.Pool(15)
         res = pool.map(partial(pminteg3,a),loc)
+        pool.close()
+        pool.join()
         return res
 
 def multicore9(a,loc):
         pool = mp.Pool(15)
         res = pool.map(partial(pminteg4,a),loc)
+        pool.close()
+        pool.join()
         return res
 def multicore10(a,loc):
         pool = mp.Pool(15)
         res = pool.map(partial(integfin,a),loc)
+        pool.close()
+        pool.join()
         return res
 
 def multicore11(a,loc):
         pool = mp.Pool(15)
         res = pool.map(partial(integfincont,a),loc)
+        pool.close()
+        pool.join()
         return res
 
 def extract_key(v):
@@ -1284,11 +1308,11 @@ class soscore(Preliminars):
         OilType = np.array(OilType)[~np.isnan(OilType)]
 
         if OilType == 1:
-            retardation = 5.6
+            retardation = 7.0
         if OilType == 2:
-            retardation = 4.2
+            retardation = 5.25
         if OilType == 3:
-            retardation = 2.8
+            retardation = 3.5
         if OilType == 4:
             retardation = 1.4
         if OilType == 5:
@@ -1578,17 +1602,17 @@ class soscore(Preliminars):
 
     def retardationDueOilType(self):
         if self.OilType == 1.0:
-            retardation = 5.6
+            retardation = 7.0
         if self.OilType == 2.0:
-            retardation = 4.2
+            retardation = 5.25
         if self.OilType == 3.0:
-            retardation = 2.8
+            retardation = 3.5
         if self.OilType == 4.0:
             retardation = 1.4
         if self.OilType == 5.0:
             retardation = 0.0
         self.retardation = retardation
-        self.st = self.st - retardation
+        self.st = self.st #- retardation
         self.pt = self.st[0]
 
         K = 1
@@ -1625,38 +1649,38 @@ class soscore(Preliminars):
         distX = np.array(x0new - x0)
         distY = np.array(y0new - y0)
         if oilType == 1.0:
-            sunkx0 = (x0 + (5.6*(np.array(distX)/8.0)))
-            sunky0 = (y0 + (5.6*(np.array(distY)/8.0)))
-            sunkxx01 = (xxx01 + (5.6*(np.array(distX)/8.0)))
-            sunkyy01 = (yyy01 + (5.6*(np.array(distY)/8.0)))
-            sunkxx02 = (xxx02 + (5.6*(np.array(distX)/8.0)))
-            sunkyy02 = (yyy02 + (5.6*(np.array(distY)/8.0)))
-            sunkxx03 = (xxx03 + (5.6*(np.array(distX)/8.0)))
-            sunkyy03 = (yyy03 + (5.6*(np.array(distY)/8.0)))
-            sunkxx04 = (xxx04 + (5.6*(np.array(distX)/8.0)))
-            sunkyy04 = (yyy04 + (5.6*(np.array(distY)/8.0)))
+            sunkx0 = (x0 + (7.0*(np.array(distX)/8.0)))
+            sunky0 = (y0 + (7.0*(np.array(distY)/8.0)))
+            sunkxx01 = (xxx01 + (7.0(np.array(distX)/8.0)))
+            sunkyy01 = (yyy01 + (7.0*(np.array(distY)/8.0)))
+            sunkxx02 = (xxx02 + (7.0*(np.array(distX)/8.0)))
+            sunkyy02 = (yyy02 + (7.0*(np.array(distY)/8.0)))
+            sunkxx03 = (xxx03 + (7.0*(np.array(distX)/8.0)))
+            sunkyy03 = (yyy03 + (7.0*(np.array(distY)/8.0)))
+            sunkxx04 = (xxx04 + (7.0*(np.array(distX)/8.0)))
+            sunkyy04 = (yyy04 + (7.0*(np.array(distY)/8.0)))
         if oilType == 2.0:
-            sunkx0 = (x0 + (4.2*(np.array(distX)/8.0)))
-            sunky0 = (y0 + (4.2*(np.array(distY)/8.0)))
-            sunkxx01 = (xxx01 + (4.2*(np.array(distX)/8.0)))
-            sunkyy01 = (yyy01 + (4.2*(np.array(distY)/8.0)))
-            sunkxx02 = (xxx02 + (4.2*(np.array(distX)/8.0)))
-            sunkyy02 = (yyy02 + (4.2*(np.array(distY)/8.0)))
-            sunkxx03 = (xxx03 + (4.2*(np.array(distX)/8.0)))
-            sunkyy03 = (yyy03 + (4.2*(np.array(distY)/8.0)))
-            sunkxx04 = (xxx04 + (4.2*(np.array(distX)/8.0)))
-            sunkyy04 = (yyy04 + (4.2*(np.array(distY)/8.0)))
+            sunkx0 = (x0 + (5.25*(np.array(distX)/8.0)))
+            sunky0 = (y0 + (5.25*(np.array(distY)/8.0)))
+            sunkxx01 = (xxx01 + (5.25*(np.array(distX)/8.0)))
+            sunkyy01 = (yyy01 + (5.25*(np.array(distY)/8.0)))
+            sunkxx02 = (xxx02 + (5.25*(np.array(distX)/8.0)))
+            sunkyy02 = (yyy02 + (5.25*(np.array(distY)/8.0)))
+            sunkxx03 = (xxx03 + (5.25*(np.array(distX)/8.0)))
+            sunkyy03 = (yyy03 + (5.25*(np.array(distY)/8.0)))
+            sunkxx04 = (xxx04 + (5.25*(np.array(distX)/8.0)))
+            sunkyy04 = (yyy04 + (5.25*(np.array(distY)/8.0)))
         if oilType == 3.0:
-            sunkx0 = (x0 + (2.8*(np.array(distX)/8.0)))
-            sunky0 = (y0 + (2.8*(np.array(distY)/8.0)))
-            sunkxx01 = (xxx01 + (2.8*(np.array(distX)/8.0)))
-            sunkyy01 = (yyy01 + (2.8*(np.array(distY)/8.0)))
-            sunkxx02 = (xxx02 + (2.8*(np.array(distX)/8.0)))
-            sunkyy02 = (yyy02 + (2.8*(np.array(distY)/8.0)))
-            sunkxx03 = (xxx03 + (2.8*(np.array(distX)/8.0)))
-            sunkyy03 = (yyy03 + (2.8*(np.array(distY)/8.0)))
-            sunkxx04 = (xxx04 + (2.8*(np.array(distX)/8.0)))
-            sunkyy04 = (yyy04 + (2.8*(np.array(distY)/8.0)))
+            sunkx0 = (x0 + (3.5*(np.array(distX)/8.0)))
+            sunky0 = (y0 + (3.5*(np.array(distY)/8.0)))
+            sunkxx01 = (xxx01 + (3.5*(np.array(distX)/8.0)))
+            sunkyy01 = (yyy01 + (3.5*(np.array(distY)/8.0)))
+            sunkxx02 = (xxx02 + (3.5*(np.array(distX)/8.0)))
+            sunkyy02 = (yyy02 + (3.5*(np.array(distY)/8.0)))
+            sunkxx03 = (xxx03 + (3.5*(np.array(distX)/8.0)))
+            sunkyy03 = (yyy03 + (3.5*(np.array(distY)/8.0)))
+            sunkxx04 = (xxx04 + (3.5*(np.array(distX)/8.0)))
+            sunkyy04 = (yyy04 + (3.5*(np.array(distY)/8.0)))
         if oilType == 4.0:
             sunkx0 = (x0 + (1.4*(np.array(distX)/8.0)))
             sunky0 = (y0 + (1.4*(np.array(distY)/8.0)))
@@ -1762,8 +1786,13 @@ def sunken_main(myinformation,progressBar):
         newlocy = np.array(newlocy)
         pdepth = np.array(pdepth) 
 
-        newx = newlocx 
-        newy = newlocy
+        if len(pdepth) == 0:
+            newx = a.bat 
+            newy = a.batt 
+        else:
+            newx = newlocx 
+            newy = newlocy
+
         coord = np.array([utm.from_latlon(i,j) for (i,j) in zip(newx,newy)])
         xa = np.array(map(float,coord[:,0]))/1000
         ya = np.array(map(float,coord[:,1]))/1000
@@ -2324,7 +2353,7 @@ def sunken_main(myinformation,progressBar):
             xcc = [list(majx) for majx in set(tuple(majx) for majx in xcc)]
             ycc = [list(majx) for majx in set(tuple(majx) for majx in ycc)]
 
-            if xcc == []:
+            if len(xcc) == 0:
                 a.x=x
                 a.y=y
 
@@ -2351,7 +2380,6 @@ def sunken_main(myinformation,progressBar):
                 print 'new Pmaxnorm', Pmaxnorm
 
                 Depth = abs(Depth)
-                Pbath = np.sqrt((f1*newcont)*(f2*((Depth-np.min(Depth))/(np.max(Depth)-np.min(Depth)))))
                 cprior = (np.sqrt(((Depth-np.min(Depth))/(np.max(Depth)-np.min(Depth)))*(ResultP/np.max(ResultP))))*Pmaxnorm
 
             else:
@@ -2505,12 +2533,14 @@ def sunken_main(myinformation,progressBar):
         if ourinformation['Run'] == 'Recalc':
             if len(a.DLxtv) == 1:
                 MaxLogP = [np.loadtxt('MaxLogLikeP.txt',delimiter=',')]
+                MaxLog = [np.loadtxt('MaxLogLike.txt',delimiter=',')]
                 paramsload2 = [np.loadtxt('fieldpriorparameters.txt',delimiter=',')]
                 a.newr = [paramsload2[k]]
                 a.combineparanew = [paramsload2[k]]
                 combineparanew = [paramsload2[k]]
             else:
                 MaxLogP = np.loadtxt('MaxLogLikeP.txt',delimiter=',')
+                MaxLog = np.loadtxt('MaxLogLike.txt',delimiter=',')
                 paramsload2 = np.loadtxt('fieldpriorparameters.txt',delimiter=',')
                 a.newr = paramsload2[k]
                 a.combineparanew = paramsload2[k]
@@ -2830,233 +2860,243 @@ def sunken_main(myinformation,progressBar):
     ###################################################     CONFIDENCE BOUND CALCULATION        ########################################################
     #___________________________________________________________________________________________________________________________________________________
 
-    if ourinformation['Method'] == 'Minimum':  
-        bounds1=[(float(ourinformation['vxmin']),float(ourinformation['vxmax'])),(float(ourinformation['vxmin']),float(ourinformation['vxmax'])),(float(ourinformation['vxmin']),float(ourinformation['vxmax'])),(float(ourinformation['vxmin']),float(ourinformation['vxmax']))] 
-        bounds2=[(float(ourinformation['vymin']),float(ourinformation['vymax'])),(float(ourinformation['vymin']),float(ourinformation['vymax'])),(float(ourinformation['vymin']),float(ourinformation['vymax'])),(float(ourinformation['vymin']),float(ourinformation['vymax']))]
-        bounds3=[(float(ourinformation['dxmin']),float(ourinformation['dxmax'])),(float(ourinformation['dxmin']),float(ourinformation['dxmax'])),(float(ourinformation['dxmin']),float(ourinformation['dxmax'])),(float(ourinformation['dxmin']),float(ourinformation['dxmax']))]
-        bounds4=[(float(ourinformation['dymin']),float(ourinformation['dymax'])),(float(ourinformation['dymin']),float(ourinformation['dymax'])),(float(ourinformation['dymin']),float(ourinformation['dymax'])),(float(ourinformation['dymin']),float(ourinformation['dymax']))]
-        bounds5=[(-0.999,0.999),(-0.999,0.999),(-0.999,0.999),(-0.999,0.999)]
-        a.par = []
-        rescf = []
+    if ourinformation['Method'] == 'Minimum': 
+        rescf = [] 
+        if ourinformation['Run'] == 'Run':
+            bounds2=[(float(ourinformation['vxmin']),float(ourinformation['vxmax'])),(float(ourinformation['vxmin']),float(ourinformation['vxmax'])),(float(ourinformation['vxmin']),float(ourinformation['vxmax'])),(float(ourinformation['vxmin']),float(ourinformation['vxmax']))] 
+            bounds1=[(float(ourinformation['vymin']),float(ourinformation['vymax'])),(float(ourinformation['vymin']),float(ourinformation['vymax'])),(float(ourinformation['vymin']),float(ourinformation['vymax'])),(float(ourinformation['vymin']),float(ourinformation['vymax']))]
+            bounds4=[(float(ourinformation['dxmin']),float(ourinformation['dxmax'])),(float(ourinformation['dxmin']),float(ourinformation['dxmax'])),(float(ourinformation['dxmin']),float(ourinformation['dxmax'])),(float(ourinformation['dxmin']),float(ourinformation['dxmax']))]
+            bounds3=[(float(ourinformation['dymin']),float(ourinformation['dymax'])),(float(ourinformation['dymin']),float(ourinformation['dymax'])),(float(ourinformation['dymin']),float(ourinformation['dymax'])),(float(ourinformation['dymin']),float(ourinformation['dymax']))]
+            bounds5=[(-0.999,0.999),(-0.999,0.999),(-0.999,0.999),(-0.999,0.999)]
+            a.par = []
+            
 
-        
-        for k in range(len(a.DLxtv)):
-            a.DLx_t = a.DLxtv[k]
-            a.DLy_t = a.DLytv[k]
-            a.DLcon_t = a.DLcontv[k]
-            a.ss1_tcf = a.ss1[k]
-            a.DLxx = a.DLx_t
-            a.DLyy = a.DLy_t
-            a.DLconny = a.DLcon_t
-            if k == 0: 
-                a.st = a.newst[k][0]
-            else: 
-                a.st = a.newst[k][0]-a.newst[k-1][0]
-            tcf = a.st
-            a.rr = combineparanew[k]
-            a.MaxLogLike = MaxLog[k]
-            a.MaxLogLikeP = MaxLogP[k]
-            if k == 0:
-                a.xx01 = a.x01
-                a.yy01 = a.y01
-                a.xx02 = a.x02
-                a.yy02 = a.y02
-                a.xx03 = a.x03
-                a.yy03 = a.y03
-                a.xx04 = a.x04
-                a.yy04 = a.y04     
-                a.ssigmax01 = 0.05 
-                a.ssigmay01 = 0.05                   
-                a.ssigmax02 = 0.05 
-                a.ssigmay02 = 0.05 
-                a.ssigmax03 = 0.05 
-                a.ssigmay03 = 0.05               
-                a.ssigmax04 = 0.05 
-                a.ssigmay04 = 0.05  
-                result = differential_evolution(partial(IniLikelihood1,a),bounds1,seed=0,maxiter=10000)
-                print result
+            
+            for k in range(len(a.DLxtv)):
+                a.DLx_t = a.DLxtv[k]
+                a.DLy_t = a.DLytv[k]
+                a.DLcon_t = a.DLcontv[k]
+                a.ss1_tcf = a.ss1[k]
+                a.DLxx = a.DLx_t
+                a.DLyy = a.DLy_t
+                a.DLconny = a.DLcon_t
+                if k == 0: 
+                    a.st = a.newst[k][0]
+                else: 
+                    a.st = a.newst[k][0]-a.newst[k-1][0]
+                tcf = a.st
+                a.rr = combineparanew[k]
+                a.MaxLogLike = MaxLog[k]
+                a.MaxLogLikeP = MaxLogP[k]
+                if k == 0:
+                    a.xx01 = a.x01
+                    a.yy01 = a.y01
+                    a.xx02 = a.x02
+                    a.yy02 = a.y02
+                    a.xx03 = a.x03
+                    a.yy03 = a.y03
+                    a.xx04 = a.x04
+                    a.yy04 = a.y04     
+                    a.ssigmax01 = 0.05 
+                    a.ssigmay01 = 0.05                   
+                    a.ssigmax02 = 0.05 
+                    a.ssigmay02 = 0.05 
+                    a.ssigmax03 = 0.05 
+                    a.ssigmay03 = 0.05               
+                    a.ssigmax04 = 0.05 
+                    a.ssigmay04 = 0.05  
+                    result = differential_evolution(partial(IniLikelihood1,a),bounds1,maxiter=10000,seed=0)
+                    print result
 
-                fitted_params = result.x
-                print(fitted_params)
-                
-                vx1 = fitted_params[0]
-                vx2 = fitted_params[1]
-                vx3 = fitted_params[2]
-                vx4 = fitted_params[3]
+                    fitted_params = result.x
+                    print(fitted_params)
+                    
+                    vx1 = fitted_params[0]
+                    vx2 = fitted_params[1]
+                    vx3 = fitted_params[2]
+                    vx4 = fitted_params[3]
 
-                a.fitted_params = vx1,vx2,vx3,vx4 
-                print a.fitted_params
+                    a.fitted_params = vx1,vx2,vx3,vx4 
+                    print a.fitted_params
 
+
+                        
+                    result2 = differential_evolution(partial(IniLikelihood2,a),bounds2,maxiter=10000,seed=0)
+                    print result2
+                    fitted_params2 = result2.x
+                    print(fitted_params2)
+                    vy1 = fitted_params2[0]
+                    vy2 = fitted_params2[1]
+                    vy3 = fitted_params2[2]
+                    vy4 = fitted_params2[3]
+
+
+                    a.fitted_params2 = vy1,vy2,vy3,vy4 
+                    print a.fitted_params2
+       
+                    result3 = differential_evolution(partial(IniLikelihood3,a),bounds3,maxiter=10000,seed=0)
+                    print result3
+                    
+                    fitted_params3 = result3.x
+                    print(fitted_params3)
+
+
+                    Dx1 = fitted_params3[0]
+                    Dx2 = fitted_params3[1]
+                    Dx3 = fitted_params3[2]
+                    Dx4 = fitted_params3[3]
+                    a.fitted_params3 = Dx1,Dx2,Dx3,Dx4
+                    print a.fitted_params3
 
                     
-                result2 = differential_evolution(partial(IniLikelihood2,a),bounds2,seed=0,maxiter=10000)
-                print result2
-                fitted_params2 = result2.x
-                print(fitted_params2)
-                vy1 = fitted_params2[0]
-                vy2 = fitted_params2[1]
-                vy3 = fitted_params2[2]
-                vy4 = fitted_params2[3]
+                    result4 = differential_evolution(partial(IniLikelihood4,a),bounds4,maxiter=10000,seed=0)
+                    print result4
+            
+                    fitted_params4 = result4.x
+                    print(fitted_params4)
 
 
-                a.fitted_params2 = vy1,vy2,vy3,vy4 
-                print a.fitted_params2
-   
-                result3 = differential_evolution(partial(IniLikelihood3,a),bounds3,seed=0,maxiter=10000)
-                print result3
-                
-                fitted_params3 = result3.x
-                print(fitted_params3)
+                    Dy1 = fitted_params4[0]
+                    Dy2 = fitted_params4[1]
+                    Dy3 = fitted_params4[2]
+                    Dy4 = fitted_params4[3]
+                    a.fitted_params4 = Dy1,Dy2,Dy3,Dy4
 
-
-                Dx1 = fitted_params3[0]
-                Dx2 = fitted_params3[1]
-                Dx3 = fitted_params3[2]
-                Dx4 = fitted_params3[3]
-                a.fitted_params3 = Dx1,Dx2,Dx3,Dx4
-                print a.fitted_params3
-
-                
-                result4 = differential_evolution(partial(IniLikelihood4,a),bounds4,seed=0,maxiter=10000)
-                print result4
+                    print a.fitted_params4
         
-                fitted_params4 = result4.x
-                print(fitted_params4)
+                    result5 = differential_evolution(partial(IniLikelihood5,a),bounds5,maxiter=10000,seed=0)
+                    print result5  
+
+                    fitted_params5 = result5.x
+                    print(fitted_params5)
+     
+
+                    ro1 = fitted_params5[0]
+                    ro2 = fitted_params5[1]
+                    ro3 = fitted_params5[2]
+                    ro4 = fitted_params5[3]
+                    a.fitted_params5 = ro1,ro2,ro3,ro4
+                    print a.fitted_params5
 
 
-                Dy1 = fitted_params4[0]
-                Dy2 = fitted_params4[1]
-                Dy3 = fitted_params4[2]
-                Dy4 = fitted_params4[3]
-                a.fitted_params4 = Dy1,Dy2,Dy3,Dy4
+                    gamma1 = a.rr[20]
+                    gamma2 = a.rr[21]
+                    gamma3 = a.rr[22]
+                    gamma4 = a.rr[23]
+                    par = vx1,vx2,vx3,vx4,vy1,vy2,vy3,vy4,Dx1,Dx2,Dx3,Dx4,Dy1,Dy2,Dy3,Dy4,ro1,ro2,ro3,ro4,gamma1,gamma2,gamma3,gamma4
+                    a.par.append(par)
 
-                print a.fitted_params4
-    
-                result5 = differential_evolution(partial(IniLikelihood5,a),bounds5,seed=0,maxiter=10000)
-                print result5  
+                else:
 
-                fitted_params5 = result5.x
-                print(fitted_params5)
- 
+                    a.xx01 = a.xx01 + vx1*tcf
+                    a.yy01 = a.yy01 + vy1*tcf
+                    a.xx02 = a.xx02 + vx2*tcf
+                    a.yy02 = a.yy02 + vy2*tcf
+                    a.xx03 = a.xx03 + vx3*tcf
+                    a.yy03 = a.yy03 + vy3*tcf
+                    a.xx04 = a.xx04 + vx4*tcf
+                    a.yy04 = a.yy04 + vy4*tcf
+                    a.ssigmax01 = a.ssigmax01 + np.sqrt(2*Dx1*tcf)
+                    a.ssigmay01 = a.ssigmay01 + np.sqrt(2*Dy1*tcf)                  
+                    a.ssigmax02 = a.ssigmax02 + np.sqrt(2*Dx2*tcf)
+                    a.ssigmay02 = a.ssigmay02 + np.sqrt(2*Dy2*tcf) 
+                    a.ssigmax03 = a.ssigmax03 + np.sqrt(2*Dx3*tcf)
+                    a.ssigmay03 = a.ssigmay03 + np.sqrt(2*Dy3*tcf)                  
+                    a.ssigmax04 = a.ssigmax04 + np.sqrt(2*Dx4*tcf)
+                    a.ssigmay04 = a.ssigmay04 + np.sqrt(2*Dy4*tcf)
 
-                ro1 = fitted_params5[0]
-                ro2 = fitted_params5[1]
-                ro3 = fitted_params5[2]
-                ro4 = fitted_params5[3]
-                a.fitted_params5 = ro1,ro2,ro3,ro4
-                print a.fitted_params5
+                    result = differential_evolution(partial(IniLikelihood1,a),bounds1,seed=0,maxiter=10000)
+                    print result
+
+            
+                    fitted_params = result.x
+                    print(fitted_params)
+                    
+                    
+                    vx1 = fitted_params[0]
+                    vx2 = fitted_params[1]
+                    vx3 = fitted_params[2]
+                    vx4 = fitted_params[3]
+                    
+
+                    a.fitted_params = vx1,vx2,vx3,vx4 
+                    print a.fitted_params
 
 
-                gamma1 = a.rr[20]
-                gamma2 = a.rr[21]
-                gamma3 = a.rr[22]
-                gamma4 = a.rr[23]
-                par = vx1,vx2,vx3,vx4,vy1,vy2,vy3,vy4,Dx1,Dx2,Dx3,Dx4,Dy1,Dy2,Dy3,Dy4,ro1,ro2,ro3,ro4,gamma1,gamma2,gamma3,gamma4
-                a.par.append(par)
+                        
+                    result2 = differential_evolution(partial(IniLikelihood2,a),bounds2,seed=0,maxiter=10000)
+                    print result2
+                    
+                    fitted_params2 = result2.x
+                    print(fitted_params2)
 
+                    vy1 = fitted_params2[0]
+                    vy2 = fitted_params2[1]
+                    vy3 = fitted_params2[2]
+                    vy4 = fitted_params2[3]
+
+
+                    a.fitted_params2 = vy1,vy2,vy3,vy4 
+                    print a.fitted_params2
+                      
+                    result3 = differential_evolution(partial(IniLikelihood3,a),bounds3,seed=0,maxiter=10000)    
+                    print result3
+                    
+                    fitted_params3 = result3.x
+                    print(fitted_params3)
+
+                    Dx1 = fitted_params3[0]
+                    Dx2 = fitted_params3[1]
+                    Dx3 = fitted_params3[2]
+                    Dx4 = fitted_params3[3]
+                    a.fitted_params3 = Dx1,Dx2,Dx3,Dx4
+                    print a.fitted_params3
+
+                    result4 = differential_evolution(partial(IniLikelihood4,a),bounds4,seed=0,maxiter=10000)
+                    print result4
+
+                    fitted_params4 = result4.x
+                    print(fitted_params4)
+                    
+
+                    Dy1 = fitted_params4[0]
+                    Dy2 = fitted_params4[1]
+                    Dy3 = fitted_params4[2]
+                    Dy4 = fitted_params4[3]
+                    a.fitted_params4 = Dy1,Dy2,Dy3,Dy4
+
+                    print a.fitted_params4
+
+                   
+                    result5 = differential_evolution(partial(IniLikelihood5,a),bounds5,seed=0,maxiter=10000)
+                    print result5  
+                    
+                    fitted_params5 = result5.x
+                    print(fitted_params5)
+                    
+
+                    ro1 = fitted_params5[0]
+                    ro2 = fitted_params5[1]
+                    ro3 = fitted_params5[2]
+                    ro4 = fitted_params5[3]
+                    a.fitted_params5 = ro1,ro2,ro3,ro4
+                    print a.fitted_params5
+
+
+                    gamma1 = a.rr[20]
+                    gamma2 = a.rr[21]
+                    gamma3 = a.rr[22]
+                    gamma4 = a.rr[23]
+                    par = vx1,vx2,vx3,vx4,vy1,vy2,vy3,vy4,Dx1,Dx2,Dx3,Dx4,Dy1,Dy2,Dy3,Dy4,ro1,ro2,ro3,ro4,gamma1,gamma2,gamma3,gamma4
+                    a.par.append(par)
+
+            np.savetxt('Confboundparams.txt',a.par,delimiter=',')
+
+        if ourinformation['Run'] == 'Recalc':
+            if len(a.DLxtv) == 1:
+                a.par = [np.loadtxt('Confboundparams.txt',delimiter=',')]
             else:
-
-                a.xx01 = a.xx01 + vx1*tcf
-                a.yy01 = a.yy01 + vy1*tcf
-                a.xx02 = a.xx02 + vx2*tcf
-                a.yy02 = a.yy02 + vy2*tcf
-                a.xx03 = a.xx03 + vx3*tcf
-                a.yy03 = a.yy03 + vy3*tcf
-                a.xx04 = a.xx04 + vx4*tcf
-                a.yy04 = a.yy04 + vy4*tcf
-                a.ssigmax01 = a.ssigmax01 + np.sqrt(2*Dx1*tcf)
-                a.ssigmay01 = a.ssigmay01 + np.sqrt(2*Dy1*tcf)                  
-                a.ssigmax02 = a.ssigmax02 + np.sqrt(2*Dx2*tcf)
-                a.ssigmay02 = a.ssigmay02 + np.sqrt(2*Dy2*tcf) 
-                a.ssigmax03 = a.ssigmax03 + np.sqrt(2*Dx3*tcf)
-                a.ssigmay03 = a.ssigmay03 + np.sqrt(2*Dy3*tcf)                  
-                a.ssigmax04 = a.ssigmax04 + np.sqrt(2*Dx4*tcf)
-                a.ssigmay04 = a.ssigmay04 + np.sqrt(2*Dy4*tcf)
-
-                result = differential_evolution(partial(IniLikelihood1,a),bounds1,seed=0,maxiter=10000)
-                print result
-
-        
-                fitted_params = result.x
-                print(fitted_params)
-                
-                
-                vx1 = fitted_params[0]
-                vx2 = fitted_params[1]
-                vx3 = fitted_params[2]
-                vx4 = fitted_params[3]
-                
-
-                a.fitted_params = vx1,vx2,vx3,vx4 
-                print a.fitted_params
-
-
-                    
-                result2 = differential_evolution(partial(IniLikelihood2,a),bounds2,seed=0,maxiter=10000)
-                print result2
-                
-                fitted_params2 = result2.x
-                print(fitted_params2)
-
-                vy1 = fitted_params2[0]
-                vy2 = fitted_params2[1]
-                vy3 = fitted_params2[2]
-                vy4 = fitted_params2[3]
-
-
-                a.fitted_params2 = vy1,vy2,vy3,vy4 
-                print a.fitted_params2
-                  
-                result3 = differential_evolution(partial(IniLikelihood3,a),bounds3,seed=0,maxiter=10000)    
-                print result3
-                
-                fitted_params3 = result3.x
-                print(fitted_params3)
-
-                Dx1 = fitted_params3[0]
-                Dx2 = fitted_params3[1]
-                Dx3 = fitted_params3[2]
-                Dx4 = fitted_params3[3]
-                a.fitted_params3 = Dx1,Dx2,Dx3,Dx4
-                print a.fitted_params3
-
-                result4 = differential_evolution(partial(IniLikelihood4,a),bounds4,seed=0,maxiter=10000)
-                print result4
-
-                fitted_params4 = result4.x
-                print(fitted_params4)
-                
-
-                Dy1 = fitted_params4[0]
-                Dy2 = fitted_params4[1]
-                Dy3 = fitted_params4[2]
-                Dy4 = fitted_params4[3]
-                a.fitted_params4 = Dy1,Dy2,Dy3,Dy4
-
-                print a.fitted_params4
-
-               
-                result5 = differential_evolution(partial(IniLikelihood5,a),bounds5,seed=0,maxiter=10000)
-                print result5  
-                
-                fitted_params5 = result5.x
-                print(fitted_params5)
-                
-
-                ro1 = fitted_params5[0]
-                ro2 = fitted_params5[1]
-                ro3 = fitted_params5[2]
-                ro4 = fitted_params5[3]
-                a.fitted_params5 = ro1,ro2,ro3,ro4
-                print a.fitted_params5
-
-
-                gamma1 = a.rr[20]
-                gamma2 = a.rr[21]
-                gamma3 = a.rr[22]
-                gamma4 = a.rr[23]
-                par = vx1,vx2,vx3,vx4,vy1,vy2,vy3,vy4,Dx1,Dx2,Dx3,Dx4,Dy1,Dy2,Dy3,Dy4,ro1,ro2,ro3,ro4,gamma1,gamma2,gamma3,gamma4
-                a.par.append(par)
+                a.par = np.loadtxt('Confboundparams.txt',delimiter=',')
 
 
         if ourinformation['starttime'] == ourinformation['endtime']:
